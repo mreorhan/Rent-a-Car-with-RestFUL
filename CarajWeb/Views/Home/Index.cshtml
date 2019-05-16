@@ -1,0 +1,82 @@
+﻿@model List<Newtonsoft.Json.Linq.JObject>
+<header class="flex-box text-center box header-landing">
+    @{ Html.RenderPartial("_UserControl"); }
+    <div class="container-home" id="searchTarget">
+        <form method="get" action="/Home/FilterResult">
+            <div class="search-home">
+                <div class="search-input">
+                    <label class="search-label" for="location">Where to pick up:</label>
+                    <input name="location" class="location" id="location" type="text" required />
+                </div>
+
+                <div class="search-input">
+                    <label class="search-label" for="location">Pick-up date:</label>
+                    <div class="search-date">
+                        <input name="startDate" class="location location-first" id="startDate" type="date" required />
+                        <input name="startTime" class="location" type="time" required />
+                    </div>
+                </div>
+
+                <div class="search-input">
+                    <label class="search-label" for="location">Return date:</label>
+                    <div class="search-date">
+                        <input name="finishDate" class="location location-first" id="finishDate" type="date" required />
+                        <input name="finishTime" class="location" type="time" required />
+                    </div>
+                </div>
+
+                <div class="search-input align-bottom">
+                    <button class="search-button" type="submit"><i class="fas fa-search"></i> Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</header>
+
+<section class="default-bg margin-medium box">
+    <h2>Available Cars</h2>
+    <section class="flex-box flex-row flex-wrap">
+
+        @foreach (var item in Model)
+        {
+            <div class="box-3 color-grey text-center">
+                <div class="car__img-small" style="background-image: url('@item["carPhotoURL"]');"></div>
+                <span class="car__text-type">@item["carBrand"] - @item["carModel"]</span>
+                <span class="car__text-age"><b>Min Age: </b>@item["minDrivingLicenseAge"]</span>
+                <span class="car__text-age"><b>Current Km: </b>@item["maxKmPerDay"]</span>
+                <span class="car__text-age"><b>Renter: </b>@item["companyName"]</span>
+                <span class="car__text-price">@String.Format("{0:0.00}", item["carPriceForRent"]) TL</span>
+                <div>
+                    <button type="button" class="car__btn-rent"><i class="fas fa-info-circle"></i> @Html.ActionLink("Details", "CarDetails/" + item["carID"], "Home")</button>
+                    <button type="button" class="rent car__btn-rent"><i class="fas fa-shopping-cart"></i> Rent this car</button>
+                </div>
+            </div>
+        }
+    </section>
+
+</section>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#startDate").change(function () {
+            var date = new Date($('#startDate').val());
+            console.log(date);
+            day = date.getUTCDate() + 1;
+            month = date.getUTCMonth() + 1;
+            year = date.getFullYear();
+            if (day < 10) day = '0' + day;
+            if (month < 10) month = '0' + month;
+            $("#finishDate").attr("min", year + "-" + month + "-" + day);
+        })
+        $(".rent").click(function () {
+            alert("You should be choose rent details");
+            scrollTo("searchTarget");
+        })
+        function scrollTo(hash) {
+            location.hash = "#" + hash;
+        }
+    });
+</script>

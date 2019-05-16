@@ -1,0 +1,37 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<header class="flex-box text-center box carDetail-landing">
+    @{ Html.RenderPartial("_UserControl"); }
+</header>
+<section class="default-bg margin-medium box">
+    <h2>Are You Sure?</h2>
+    <section class="flex-box-paddingS">
+        <div class="profile__detail-details text-center flex-box-full">
+            <span class="car__text-type">Car Details: @TempData["CarReservationCarName"]</span>
+            <h3>Reservation Details:</h3>
+            <span class="car__text-details">Date: @TempData["CarReservationFirstDate"] - @TempData["CarReservationLastDate"]</span>
+            <span class="car__text-details">Location: @TempData["CarReservationLocation"]</span>
+            <span class="car__text-details">Total Amount: @TempData["CarReservationPrice"] TL</span>
+            @if (int.Parse(TempData["Age"].ToString()) <= int.Parse(TempData["CarReservationAge"].ToString()))
+            {
+            <h3>There is a minimum age requirement to rent this car.</h3>
+            }
+            else
+            {
+                <form method="post" action="/Dashboard/AddReservation">
+                    <button type="submit" class="rent car__btn-rent"><i class="fas fa-shopping-cart"></i> Send Request</button>
+                    <input type="text" name="location" value="asd" hidden />
+                    <input type="text" name="RentStartDate" value="@TempData["CarReservationFirstDate"]" hidden />
+                    <input type="text" name="RentEndDate" value="@TempData["CarReservationLastDate"]" hidden />
+                    <input type="text" name="carID" value="@TempData["CarReservationCarID"]" hidden />
+                    <input type="text" name="customerID" value="@Session["CustomerID"]" hidden />
+                    <input type="text" name="pricing" value="@TempData["CarReservationPrice"]" hidden />
+                    <input type="text" name="StartingKilometer" value="1" hidden />
+                    <input type="text" name="EndingKilometer" value="1000" hidden />
+                </form>
+            }
+        </div>
+    </section>
+
+</section>

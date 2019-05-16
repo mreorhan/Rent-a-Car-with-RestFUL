@@ -1,0 +1,16 @@
+﻿@{
+    HttpCookie aCookie = Request.Cookies["UserCookies"];
+}
+<div class="header-title">
+    <div class="container-title">
+        <div class="logo"><span class="logo-title"><a href="../">Caraj</a></span></div>
+        <div class="header__right-menu">
+            <span>@Html.ActionLink("Welcome " + @aCookie.Value, "Profile", "Dashboard")</span>
+            @if(HttpContext.Current.Session["CompanyID"] != null)
+            {
+                <span>@Html.ActionLink("Company Settings", "CompanyProfile", "Dashboard")</span>
+            }
+            <span>@Html.ActionLink("Logout", "Logout", "Authentication")</span>
+        </div>
+    </div>
+</div>

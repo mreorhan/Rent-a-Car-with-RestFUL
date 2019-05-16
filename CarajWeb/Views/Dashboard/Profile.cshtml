@@ -1,0 +1,18 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string id = (string)Session["UserID"];
+}
+<header class="flex-box text-center box carDetail-landing">
+    @{ Html.RenderPartial("_UserControl"); }
+</header>
+<section class="default-bg margin-medium box">
+    <h2>User Profile</h2>
+    <h1>@ViewBag.CustomerID</h1>
+    <section class="flex-box-paddingS">
+        <div class="profile__detail-details text-center flex-box-full">
+            <span class="car__text-type">@id</span>
+            <span class="car__text-age">Reservations</span>
+        </div>
+    </section>
+
+</section>

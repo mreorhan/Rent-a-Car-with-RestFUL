@@ -1,0 +1,26 @@
+﻿@model Newtonsoft.Json.Linq.JObject
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header class="flex-box text-center box carDetail-landing">
+    @{ Html.RenderPartial("_UserControl"); }
+</header>
+
+<section class="default-bg margin-medium box">
+    <h2>@Model["carBrand"] - @Model["carModel"]</h2>
+    <section class="flex-box flex-row flex-wrap">
+        <div class="box-full text-center flex-box">
+            <img class="car__detail-img-small" src="@Model["CarPhotoURL"]" />
+            <div class="car__detail-details" style="zoom: 2;">
+                <span class="car__text-age">Min age: @Model["minDrivingLicenseAge"]</span>
+                <span class="car__text-age">Daily limit: @Model["maxKmPerDay"] km</span>
+                <span class="car__text-age">Airbag: @Model["airBagCount"]</span>
+                <span class="car__text-age">Seat: @Model["carSeatCount"]</span>
+                <span class="car__text-age">Renter: @Model["companyName"]</span>
+                <span class="car__text-price">@String.Format("{0:0.00}", Model["carPriceForRent"]) TL</span>
+            </div>
+        </div>
+    </section>
+
+</section>

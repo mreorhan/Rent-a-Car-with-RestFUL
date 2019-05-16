@@ -1,0 +1,100 @@
+﻿@model List<CarajWeb.CarService.CarReturnDto>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header class="flex-box text-center box carDetail-landing">
+    @{ Html.RenderPartial("_UserControl"); }
+</header>
+<section class="default-bg margin-medium box">
+    <h2>Cars</h2>
+    <section class="flex-box-paddingS">
+        <div class="profile__detail-details text-center flex-box-full">
+            @Html.ActionLink("Create New", "Create")
+            @if (@TempData["Message"]!=null)
+            {
+            <span class="message-success">@TempData["Message"]</span>
+            }
+            <table class="table">
+                <tr>
+                    <th>
+                        Car Brand
+                    </th>
+                    <th>
+                        CarModel
+                    </th>
+                    <th>
+                        MinDrivingLicenseAge
+                    </th>
+                    <th>
+                        MinCustomerAge
+                    </th>
+                    <th>
+                        MaxKmPerDay
+                    </th>
+                    <th>
+                        CarKM
+                    </th>
+                    <th>
+                        AirBagCount
+                    </th>
+                    <th>
+                        CarTrunkVolume
+                    </th>
+                    <th>
+                        CarSeatCount
+                    </th>
+                    <th>
+                        CarPriceForRent
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CarBrand)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CarModel)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MinDrivingLicenseAge)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MinCustomerAge)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaxKmPerDay)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CarKM)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AirBagCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CarTrunkVolume)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CarSeatCount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CarPriceForRent)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { carID = item.CarID }) |
+                            @Html.ActionLink("Details", "../Home/CarDetails/" + item.CarID, "",new { id = item.CarID }) |
+                            @Html.ActionLink("Delete", "Delete", new { carID = item.CarID })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </section>
+
+</section>

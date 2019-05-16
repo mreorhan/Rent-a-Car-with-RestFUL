@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<header class="flex-box text-center box header-login">
+    <div class="container-home" style="margin:auto">
+        <a href="@Url.Action("Index", "Home")">
+            <i class="fas fa-home"></i> Back to Home
+        </a>
+        <h3>Register</h3>
+        <form method="post" action="/Authentication/RegisterCompany">
+            <div class="login-home">
+                <div class="login-input">
+                    <label class="login-label" for="name">Company Name:</label>
+                    <input name="CompanyName" class="location login-input-fix" type="text" />
+                </div>
+                <div class="login-input">
+                    <label class="login-label" for="adress">Company Adress:</label>
+                    <input name="CompanyAdress" class="location login-input-fix" type="text" />
+                </div>
+                <div class="login-input">
+                    <label class="login-label" for="password">Password:</label>
+                    <input name="CompanyPassword" class="location login-input-fix" type="password" />
+                </div>
+                <div class="login-input align-bottom">
+                    <button class="search-button" type="submit"><i class="fas fa-lock"></i>&nbsp;&nbsp;&nbsp;Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</header>

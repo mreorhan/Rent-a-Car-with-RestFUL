@@ -1,0 +1,474 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+    background-color: #f1f1f1;
+    margin:0 auto!important;
+}
+.car__btn-rent a, .logo-title a, .logo-title a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+.carDetail-landing .header-title{
+    margin:0!important
+}
+section.default-bg.margin-medium.box {
+    min-height: 500px;
+}
+.flex-box-paddingS{
+    padding:10px
+}
+.flex-box-full {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+}
+a {
+    text-decoration: none;
+    color: #161616;
+}
+a:hover {
+    text-decoration: underline;
+    color: #161616;
+}
+.header__right-menu a {
+    padding: 5px 15px;
+    border-radius: 5px;
+    transition: all .3s;
+}
+    .header__right-menu a:hover {
+        text-decoration: none;
+        color: #fff;
+        background-color: #0073cf;
+    }
+.car__btn-rent:hover {
+    background: #094c81;
+}
+.car__btn-rent a:hover {
+    text-decoration: none;
+    color: #fff
+}
+    .text-center {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -ms-grid-row-align: center;
+    align-items: center
+}
+
+.flex-box {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex
+}
+
+.flex-column {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column
+}
+
+.flex-grow {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row
+}
+
+.flex-3 {
+    -webkit-box-flex: 3;
+    -ms-flex-positive: 3;
+    flex-grow: 3
+}
+
+.flex-1 {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1
+}
+
+.flex-wrap {
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: flex-start;
+    -ms-flex-pack: flex-start;
+    justify-content: flex-start;
+}
+
+.default-bg {
+    background-color: #fff
+}
+
+.color-grey {
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px -5px #3f3f3f;
+}
+
+.margin-medium {
+    margin: 10px 14px
+}
+
+.margin__top-minus {
+    margin: -12px 0 0 0;
+}
+
+.align-center {
+    -ms-flex-item-align: center;
+    align-self: center
+}
+
+.align-bottom {
+    -ms-flex-item-align: end;
+    align-self: flex-end
+}
+
+.height-small {
+    height: 100px
+}
+
+.box-3 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 23%;
+    margin: 1%;
+    min-height: 200px;
+    flex-direction: column;
+}
+.box-full {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+}
+
+.box {
+    border: 0
+}
+
+.frame {
+    max-height: 50vh;
+    overflow: auto;
+    padding: 10px 0;
+    background-color: #fff
+}
+
+aside {
+    padding-bottom: 20px;
+    min-height: 60px;
+}
+
+footer {
+    background-color: #202020;
+    color: #fff;
+    padding: 20px;
+}
+@media screen and (max-width:900px) {
+    .box-3 {
+        width: 46%;
+        margin: 0 2% 2%;
+    }
+    .frame {
+        padding: 20px 0
+    }
+    .search-input {
+        flex-direction: row!important;
+        width: 100%!important;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .box-3 {
+        width: auto;
+        margin: 2%;
+    }
+    .margin-medium {
+        margin: 5px
+    }
+    .frame {
+        padding: 0
+    }
+    .flex-row {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column
+    }
+    .margin__top-large {
+        margin-top: 10px;
+    }
+}
+
+.header-login{
+    min-height: 100vh;
+}
+.header-landing{
+    min-height: 40vw;
+}
+header {
+    background-image: url('../assets/bg.png');
+    background-repeat: no-repeat;
+    background-color: #f8f8f8;
+    background-size: auto;
+    background-position: bottom;
+    flex-direction: column;
+}
+.header-title {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 100%;
+}
+.logo,.header__right-menu {
+    flex-grow: 1;
+}
+.logo-title {
+    background: #0073cf;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #fff;
+    font-weight: bold;
+}
+.container-title{
+    display: flex
+}
+.container-home {
+    width: 100%;
+    margin: 15vw auto auto auto;
+    min-height: 50px;
+}
+
+.search-home {
+    width: 60%;
+    background: #fff;
+    margin: 0 auto;
+    text-align: left;
+    padding: 10px;
+    flex-wrap: wrap;
+    display: flex;
+    box-shadow: 0px 2px 8px -5px #3f3f3f;
+    border-radius: 5px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    flex-wrap: wrap;
+}
+
+.search-label {
+    line-height: 2;
+}
+
+input {
+    border: 2px solid #cecece;
+    padding: 13px;
+    border-radius: 5px;
+    font-family: 'Segoe UI', Arial;
+    outline: 0
+}
+
+.location-first {
+    width: 54%!important;
+}
+
+.search-date input {
+    margin-right: -10px;
+    width: calc(37% - 5px);
+    padding: 13px 5px 13px;
+}
+.search-button, .btn-default {
+    background-color: #0073cf;
+    border: 0;
+    font-family: 'Segoe UI';
+    color: #fff;
+    font-size: 19px;
+    vertical-align: middle;
+    padding: 12px 30px;
+    border-radius: 4px;
+}
+
+.car__img-small {
+    min-height: 256px;
+    min-width: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.car__text-type {
+    font-weight: bold;
+    font-size: 18px;
+    padding: 5px 0 0;
+}
+
+.car__text-price {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 15px;
+    color: #0073cf;
+}
+
+.car__btn-rent {
+    background: #0073cf;
+    border: 0;
+    padding: 8px 20px;
+    outline: 0;
+    color: #fff;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition:all .3s
+}
+
+.car__text-age {
+    font-style: italic;
+    font-size: 12px;
+    color: #626262;
+}
+h2 {
+    text-align: center;
+    padding-top: 8px;
+    color: #0073cf;
+}
+
+/*login BEGIN**/
+.login-label{
+        line-height: 2;
+        min-width: 92px;
+        display: inline-block;
+}
+.login-input {
+    flex: 1;
+    padding: 10px;
+}
+.login-home {
+    width: 20%;
+    background: #fff;
+    margin: 0 auto;
+    text-align: left;
+    padding: 10px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    display: flex;
+    box-shadow: 0px 2px 8px -5px #3f3f3f;
+    border-radius: 5px;
+}
+.login-input-fix{
+    width: calc(100% - 30px);
+}
+/*login END**/
+
+.carDetail-title {
+    display: flex;
+    flex-direction: column;
+    margin-top: 11px;
+    width: 100%;
+}
+.carDetail-landing {
+    min-height: 70px;
+}
+.car__detail-img-small,.car__detail-details {
+    width: 50%;
+}
+.car__detail-details span{
+display: block
+}
+
+.control-label {
+    min-width: 158px;
+    text-align: right;
+    padding: 10px;
+}
+.form-group {
+    display: flex;
+    padding: 10px 0;
+}
+.col-md-offset-2.col-md-10 {
+    margin: 0 auto;
+}
+.col-md-10 {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+.field-validation-error.text-danger {
+    background: #ec8484;
+    border-radius: 5px;
+    margin: 5px 0;
+    padding: 10px;
+    color: #601313;
+}
+.message-success {
+    background: #dcf8c6;
+    border-radius: 5px;
+    margin: 5px 0;
+    padding: 10px;
+    color: #262626;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+table {
+    empty-cells: show;
+    border: 1px solid #cbcbcb
+}
+
+    table caption {
+        color: #000;
+        font: italic 85%/1 arial,sans-serif;
+        padding: 1em 0;
+        text-align: center
+    }
+
+   table td,table th {
+        border-left: 1px solid #cbcbcb;
+        border-width: 0 0 0 1px;
+        font-size: inherit;
+        margin: 0;
+        overflow: visible;
+        padding: .5em 1em
+    }
+
+       table td:first-child, table th:first-child {
+            border-left-width: 0
+        }
+
+table thead {
+        background-color: #e0e0e0;
+        color: #000;
+        text-align: left;
+        vertical-align: bottom
+    }
+
+    table td {
+        background-color: transparent
+    }
+
+.table-odd td, table-striped tr:nth-child(2n-1) td {
+    background-color: #f2f2f2
+}
+
+.table-bordered td {
+    border-bottom: 1px solid #cbcbcb
+}
+
+table-bordered tbody > tr:last-child > td {
+    border-bottom-width: 0
+}
+
+table-horizontal td, table-horizontal th {
+    border-width: 0 0 1px;
+    border-bottom: 1px solid #cbcbcb
+}
+
+table-horizontal tbody > tr:last-child > td {
+    border-bottom-width: 0
+}

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<CarajWeb.CompanyService.RentDetailsResponseDto>
+
+@{
+    ViewBag.Title = "Reservations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<header class="flex-box text-center box carDetail-landing">
+    @{ Html.RenderPartial("_UserControl"); }
+</header>
+<section class="default-bg margin-medium box">
+    <h2>All Reservations</h2>
+    <section class="flex-box-paddingS">
+        <div class="profile__detail-details text-center flex-box-full">
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CustomerID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CarID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RentStartDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.RentEndDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartingKilometer)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndingKilometer)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Pricing)
+                    </th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CustomerID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CarID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RentStartDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RentEndDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartingKilometer)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndingKilometer)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Pricing)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </section>
+
+</section>
