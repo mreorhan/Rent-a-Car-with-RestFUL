@@ -56,9 +56,19 @@ namespace CarajWeb.Controllers
             DateTime first = DateTime.ParseExact(startDate+" "+ startTime, "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture);
             DateTime last = DateTime.ParseExact(finishDate + " " + finishTime, "yyyy-MM-dd HH:mm", System.Globalization.CultureInfo.InvariantCulture);
 
-           
-
-            return View(1);
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(link);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("car/GetAvailableCar?first=" + first+"&last="+last).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var model = response.Content.ReadAsAsync<JArray>().Result;
+                    return View(model);
+                }
+                else
+                    return View();
+            }
         }
     }
 }

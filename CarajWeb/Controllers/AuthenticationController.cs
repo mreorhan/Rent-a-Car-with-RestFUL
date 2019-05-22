@@ -60,23 +60,20 @@ namespace CarajWeb.Controllers
                     link+ "auth/CustomerLogin?username="+ username + "&password="+ password,
                      new StringContent(username,Encoding.UTF8, "application/json"));
                
-                var model = response.Content.ReadAsAsync<JObject>().Result;
+                if (response.StatusCode.GetHashCode() == 200)
+                {
+                    var model = response.Content.ReadAsAsync<JObject>().Result;
+                    //Session["BirthDate"] = model.BirthDate.ToString("yyyy-MM-dd");
+                    Response.Cookies.Add(CreateUserCookie(model["customerName"].ToString()));
+                    Session["CustomerID"] = model["customerID"];
+                    return RedirectToAction("Index", "Home", "");
+                }
+                else
+                {
+                    TempData.Add("Error", "Wrong username or password");
+                    return RedirectToAction("Login", "Authentication", "");
+                }
             }
-            /*AuthServiceSoapClient client = new AuthServiceSoapClient();
-           //oginResponseDto response = client.CustomerLogin(username, password);
-            if (response != null)
-            {
-                Session["BirthDate"] = response.BirthDate.ToString("yyyy-MM-dd");
-                Response.Cookies.Add(CreateUserCookie(response.CustomerName));
-                Session["CustomerID"] = response.CustomerID;
-                return RedirectToAction("Index", "Home", "");
-            }
-            else
-            {
-                TempData.Add("Error","Wrong username or password");
-                return RedirectToAction("Login", "Authentication", "");
-            }*/
-            return RedirectToAction("Login", "Authentication", "");
         }
 
         [HttpPost]
@@ -106,24 +103,29 @@ namespace CarajWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetCompanyLogin(string username, string password)
+        public async Task<ActionResult> GetCompanyLogin(string username, string password)
         {
-            Session["CompanyID"] = 2;
-            Response.Cookies.Add(CreateUserCookie("2"));
+            using (var client = new HttpClient())
+            {
+                var response = await client.PostAsync(
+                    link + "auth/CompanyLogin?companyname=" + username + "&password=" + password,
+                     new StringContent(username, Encoding.UTF8, "application/json"));
 
-            return RedirectToAction("Index", "Home", "");
-            /*
-            if ("" != null)
-            {
-                //Response.Cookies.Add(CreateUserCookie(response.CompanyID.ToString()));
-                //Session["CompanyID"] = response.CompanyID;
-                return RedirectToAction("Index", "Home", "");
+                if (response.StatusCode.GetHashCode() == 200)
+                {
+                    var model = response.Content.ReadAsAsync<JObject>().Result;
+
+                    //TODO: Change companyid with companyname
+                    Response.Cookies.Add(CreateUserCookie(model["companyID"].ToString()));
+                    Session["CompanyID"] = model["companyID"];
+                    return RedirectToAction("Index", "Home", "");
+                }
+                else
+                {
+                    TempData.Add("Error", "Wrong username or password");
+                    return RedirectToAction("CompanyLogin", "Authentication", "");
+                }
             }
-            else
-            {
-                TempData.Add("Error", "Wrong username or password");
-                return RedirectToAction("CompanyLogin", "Authentication", "");
-            }*/
         }
     }
 }

@@ -192,6 +192,7 @@
     <Content Include="Views\Authentication\CompanyRegister.cshtml" />
     <Content Include="Views\Car\Edit.cshtml" />
     <Content Include="Views\Car\Reservations.cshtml" />
+    <Content Include="Views\Dashboard\Chart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,12 +1,12 @@
-﻿@model List<CarajWeb.CarService.CarReturnDto>
-    @{ 
-        Uri url = new Uri(HttpContext.Current.Request.Url.AbsoluteUri);
-        string startDate = HttpUtility.ParseQueryString(url.Query).Get("startDate");
-        string finishDate = HttpUtility.ParseQueryString(url.Query).Get("finishDate");
-        string startTime = HttpUtility.ParseQueryString(url.Query).Get("startTime");
-        string finishTime = HttpUtility.ParseQueryString(url.Query).Get("finishTime");
-        string location = HttpUtility.ParseQueryString(url.Query).Get("location");
-    }
+﻿@model Newtonsoft.Json.Linq.JArray
+@{
+    Uri url = new Uri(HttpContext.Current.Request.Url.AbsoluteUri);
+    string startDate = HttpUtility.ParseQueryString(url.Query).Get("startDate");
+    string finishDate = HttpUtility.ParseQueryString(url.Query).Get("finishDate");
+    string startTime = HttpUtility.ParseQueryString(url.Query).Get("startTime");
+    string finishTime = HttpUtility.ParseQueryString(url.Query).Get("finishTime");
+    string location = HttpUtility.ParseQueryString(url.Query).Get("location");
+}
 <header class="flex-box text-center box header-landing">
     @{ Html.RenderPartial("_UserControl"); }
     <div class="container-home">
@@ -45,29 +45,29 @@
 
         @foreach (var item in Model)
         {
-        <div class="box-3 color-grey text-center">
-            <div class="car__img-small" style="background-image: url('@item.CarPhotoURL');"></div>
-            <span class="car__text-type">@item.CarBrand - @item.CarModel</span>
-            <span class="car__text-age"><b>Min Age: </b>@item.MinCustomerAge</span>
-            <span class="car__text-age"><b>Current Km: </b>@item.CarKM</span>
-            <span class="car__text-age"><b>Renter: </b>@item.CompanyName</span>
-            <span class="car__text-price">@String.Format("{0:0.00}", item.CarPriceForRent) TL</span>
-            <div>
-                <button type="submit" class="car__btn-rent"><i class="fas fa-info-circle"></i> @Html.ActionLink("Details", "CarDetails/"+ item.CarID, "Home")</button>
-                <form method="post" action="/Dashboard/ReservationAddCheck">
-                    <button type="submit" class="car__btn-rent"><i class="fas fa-shopping-cart"></i> Rent this car</button>
-                    <input type="text" name="location" value="@location" hidden />
-                    <input type="text" name="startDate" value="@startDate" hidden />
-                    <input type="text" name="startTime" value="@startTime" hidden />
-                    <input type="text" name="finishDate" value="@finishDate" hidden />
-                    <input type="text" name="finishTime" value="@finishTime" hidden />
-                    <input type="text" name="carID" value="@item.CarID" hidden />
-                    <input type="text" name="carName" value="@item.CarBrand - @item.CarModel" hidden />
-                    <input type="text" name="rent" value="@item.CarPriceForRent" hidden />
-                    <input type="text" name="age" value="@item.MinCustomerAge" hidden />
-                </form>
+            <div class="box-3 color-grey text-center">
+                <div class="car__img-small" style="background-image: url('@item["carPhotoURL"]');"></div>
+                <span class="car__text-type">@item["carBrand"] - @item["carModel"]</span>
+                <span class="car__text-age"><b>Min Age: </b>@item["minCustomerAge"]</span>
+                <span class="car__text-age"><b>Current Km: </b>@item["carKM"]</span>
+                <span class="car__text-age"><b>Renter: </b>@item["companyName"]</span>
+                <span class="car__text-price">@String.Format("{0:0.00}", item["carPriceForRent"]) TL</span>
+                <div>
+                    <button type="submit" class="car__btn-rent"><i class="fas fa-info-circle"></i> @Html.ActionLink("Details", "CarDetails/" + item["carID"], "Home")</button>
+                    <form method="post" action="/Dashboard/ReservationAddCheck">
+                        <button type="submit" class="car__btn-rent"><i class="fas fa-shopping-cart"></i> Rent this car</button>
+                        <input type="text" name="location" value="@location" hidden />
+                        <input type="text" name="startDate" value="@startDate" hidden />
+                        <input type="text" name="startTime" value="@startTime" hidden />
+                        <input type="text" name="finishDate" value="@finishDate" hidden />
+                        <input type="text" name="finishTime" value="@finishTime" hidden />
+                        <input type="text" name="carID" value="@item["carID"]" hidden />
+                        <input type="text" name="carName" value="@item["carBrand"] - @item["carModel"]" hidden />
+                        <input type="text" name="rent" value="@item["carPriceForRent"]" hidden />
+                        <input type="text" name="age" value="@item["minCustomerAge"]" hidden />
+                    </form>
+                </div>
             </div>
-        </div>
         }
     </section>
 

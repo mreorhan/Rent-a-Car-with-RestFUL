@@ -1,8 +1,21 @@
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
     background-color: #f1f1f1;
     margin:0 auto!important;
 }
+
+#chart {
+    max-width: 760px;
+    margin: 35px auto;
+    opacity: 0.9;
+}
+
+#timeline-chart .apexcharts-toolbar {
+    opacity: 1;
+    border: 0;
+}
+
 .car__btn-rent a, .logo-title a, .logo-title a:hover {
     color: #fff;
     text-decoration: none;
