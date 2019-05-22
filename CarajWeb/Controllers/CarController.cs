@@ -1,11 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Net.Http;
 using System.Web.Mvc;
+using System.Net.Http.Headers;
+using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+
 
 namespace CarajWeb.Controllers
 {
     public class CarController : Controller
     {
+        string link = "http://165.22.91.48/api/";
+
         // GET: Car
         public ActionResult Index()
         {
@@ -28,7 +34,20 @@ namespace CarajWeb.Controllers
 
         public ActionResult List()
         {
-            return View(1);
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(link);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("car/GetCars?id=2").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var model = response.Content.ReadAsAsync<List<JObject>>().Result;
+                    return View(model);
+                }
+                else
+                    return View();
+            }
+
         }
 
         public ActionResult Reservations()
@@ -41,14 +60,17 @@ namespace CarajWeb.Controllers
         [HttpPost]
         public ActionResult Create(string dto)
         {
-            //CarServiceSoapClient client = new CarServiceSoapClient();
-            if (ModelState.IsValid) { 
-              //  client.AddCar(dto, (int)Session["CompanyID"]);
-                TempData.Add("Message","Car Created");
+            using (var client = new HttpClient())
+            {
+                var response = client.PostAsync(
+                    link+"car/addcar",
+                     new StringContent(dto, System.Text.Encoding.UTF8, "application/json"));
+
+                TempData.Add("Message", "Car Created");
+
                 return RedirectToAction("List", "Car", "");
             }
-
-            return View();
+            
         }
 
        /* [HttpPost]

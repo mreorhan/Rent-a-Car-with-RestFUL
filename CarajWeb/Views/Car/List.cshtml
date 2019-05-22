@@ -1,4 +1,4 @@
-﻿@model List<CarajWeb.CarService.CarReturnDto>
+﻿@model List<Newtonsoft.Json.Linq.JObject>
 
 @{
     ViewBag.Title = "List";
@@ -13,9 +13,9 @@
     <section class="flex-box-paddingS">
         <div class="profile__detail-details text-center flex-box-full">
             @Html.ActionLink("Create New", "Create")
-            @if (@TempData["Message"]!=null)
+            @if (@TempData["Message"] != null)
             {
-            <span class="message-success">@TempData["Message"]</span>
+                <span class="message-success">@TempData["Message"]</span>
             }
             <table class="table">
                 <tr>
@@ -56,39 +56,39 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CarBrand)
+                            @item["carBrand"]
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CarModel)
+                            @item["carModel"]
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.MinDrivingLicenseAge)
+                            @item["minDrivingLicenseAge"]
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.MinCustomerAge)
+                            @item["minCustomerAge"]
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.MaxKmPerDay)
+                            @item["maxKmPerDay"]
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CarKM)
+                            @item["carKM"]
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.AirBagCount)
+                            @item["airBagCount"]
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CarTrunkVolume)
+                            @item["carTrunkVolume"]
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CarSeatCount)
+                            @item["carSeatCount"]
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.CarPriceForRent)
+                            @item["carPriceForRent"]
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { carID = item.CarID }) |
-                            @Html.ActionLink("Details", "../Home/CarDetails/" + item.CarID, "",new { id = item.CarID }) |
-                            @Html.ActionLink("Delete", "Delete", new { carID = item.CarID })
+                            @Html.ActionLink("Edit", "Edit", new { carID = item["carID"] }) |
+                            @Html.ActionLink("Details", "../Home/CarDetails/" + item["carID"], "", new { id = item["carID"] }) |
+                            @Html.ActionLink("Delete", "Delete", new { carID = item["carID"] })
                         </td>
                     </tr>
                 }

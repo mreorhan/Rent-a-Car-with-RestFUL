@@ -1,4 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -6,6 +12,8 @@ namespace CarajWeb.Controllers
 {
     public class AuthenticationController : Controller
     {
+        string link = "http://165.22.91.48/api/";
+
         private HttpCookie CreateUserCookie(string customerName)
         {
             HttpCookie UserCookies = new HttpCookie("UserCookies");
@@ -44,8 +52,16 @@ namespace CarajWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetUserLogin(string username, string password)
+        public async Task<ActionResult> GetUserLogin(string username, string password)
         {
+            using (var client = new HttpClient())
+            {
+                var response = await client.PostAsync(
+                    link+ "auth/CustomerLogin?username="+ username + "&password="+ password,
+                     new StringContent(username,Encoding.UTF8, "application/json"));
+               
+                var model = response.Content.ReadAsAsync<JObject>().Result;
+            }
             /*AuthServiceSoapClient client = new AuthServiceSoapClient();
            //oginResponseDto response = client.CustomerLogin(username, password);
             if (response != null)
@@ -92,7 +108,11 @@ namespace CarajWeb.Controllers
         [HttpPost]
         public ActionResult GetCompanyLogin(string username, string password)
         {
-           
+            Session["CompanyID"] = 2;
+            Response.Cookies.Add(CreateUserCookie("2"));
+
+            return RedirectToAction("Index", "Home", "");
+            /*
             if ("" != null)
             {
                 //Response.Cookies.Add(CreateUserCookie(response.CompanyID.ToString()));
@@ -103,7 +123,7 @@ namespace CarajWeb.Controllers
             {
                 TempData.Add("Error", "Wrong username or password");
                 return RedirectToAction("CompanyLogin", "Authentication", "");
-            }
+            }*/
         }
     }
 }
