@@ -1,7 +1,13 @@
-﻿using System;
+﻿using CarajWeb.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -50,18 +56,27 @@ namespace CarajWeb.Controllers
             return RedirectToAction("Reservation", "Dashboard", "");
         }
 
-        public ActionResult AddReservation(string dto)
+        public async Task<ActionResult> AddReservation(RentDetails dto)
         {
-            //CompanyServiceSoapClient client = new CompanyServiceSoapClient();
-            if (ModelState.IsValid) { 
-                //client.CreateRent(dto);
+            using (HttpClient client = new HttpClient()) //Fix
+            {
+                client.BaseAddress = new Uri("http://165.22.91.48/api/"); //Fix
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json")); //Fix
+                var serializeddto = JsonConvert.SerializeObject(dto);
+                var content = new StringContent(serializeddto, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("company/CreateRent", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Accepted", "Dashboard", "");
+                }
             }
-            return RedirectToAction("Accepted", "Dashboard", "");
+            return View();
         }
 
         public ActionResult Reservation()
         {
-            string BirthDate = Session["BirthDate"].ToString();
+            //TODO: Change birthdate
+            string BirthDate = "1990-01-01";
             DateTime dt = DateTime.ParseExact(BirthDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             var today = DateTime.Today;
             var age = today.Year -dt.Year;
