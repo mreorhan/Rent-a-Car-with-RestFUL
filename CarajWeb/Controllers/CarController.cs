@@ -27,9 +27,20 @@ namespace CarajWeb.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult Edit(string carID)
+        public async Task<ActionResult> Edit(CarUpdate dto)
         {
-            
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(link);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var serializeddto = JsonConvert.SerializeObject(dto);
+                var content = new StringContent(serializeddto, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("car/UpdateCar", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("List", "Car", "");
+                }
+            }
             ViewBag.Message = "Car Details";
 
             return View(1);

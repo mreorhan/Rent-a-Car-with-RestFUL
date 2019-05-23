@@ -139,9 +139,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CarRequest.cs" />
+    <Compile Include="Models\CarUpdate.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\RentDetails.cs" />
+    <Compile Include="Models\RentDetailsResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
