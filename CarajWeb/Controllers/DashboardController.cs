@@ -15,6 +15,7 @@ namespace CarajWeb.Controllers
 {
     public class DashboardController : Controller
     {
+        string link = "http://165.22.91.48/api/";
         // GET: Dashboard
         public ActionResult Profile()
         {
@@ -58,10 +59,10 @@ namespace CarajWeb.Controllers
 
         public async Task<ActionResult> AddReservation(RentDetails dto)
         {
-            using (HttpClient client = new HttpClient()) //Fix
+            using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://165.22.91.48/api/"); //Fix
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json")); //Fix
+                client.BaseAddress = new Uri(link);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 var serializeddto = JsonConvert.SerializeObject(dto);
                 var content = new StringContent(serializeddto, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync("company/CreateRent", content);

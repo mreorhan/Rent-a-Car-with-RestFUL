@@ -4,7 +4,10 @@ using System.Web.Mvc;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-
+using CarajWeb.Models;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Text;
 
 namespace CarajWeb.Controllers
 {
@@ -38,7 +41,7 @@ namespace CarajWeb.Controllers
             {
                 client.BaseAddress = new Uri(link);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("car/GetCars?id=2").Result;
+                HttpResponseMessage response = client.GetAsync("car/GetCars?id="+ Session["CompanyID"]).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var model = response.Content.ReadAsAsync<List<JObject>>().Result;
@@ -58,19 +61,23 @@ namespace CarajWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string dto)
+        public async Task<ActionResult> Create(CarRequest dto)
         {
-            using (var client = new HttpClient())
+            dto.CompanyID = int.Parse(Session["CompanyID"].ToString());
+            using (HttpClient client = new HttpClient())
             {
-                var response = client.PostAsync(
-                    link+"car/addcar",
-                     new StringContent(dto, System.Text.Encoding.UTF8, "application/json"));
-
-                TempData.Add("Message", "Car Created");
-
-                return RedirectToAction("List", "Car", "");
+                client.BaseAddress = new Uri(link);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var serializeddto = JsonConvert.SerializeObject(dto);
+                var content = new StringContent(serializeddto, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("car/addcar", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("List", "Car", "");
+                }
             }
-            
+
+            return View();
         }
 
        /* [HttpPost]

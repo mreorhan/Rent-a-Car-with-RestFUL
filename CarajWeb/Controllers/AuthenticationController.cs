@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using CarajWeb.Models;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -77,17 +79,38 @@ namespace CarajWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegisterUser(string dto)
+        public async Task<ActionResult> RegisterUser(Customer dto)
         {
-
-
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(link);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var serializeddto = JsonConvert.SerializeObject(dto);
+                var content = new StringContent(serializeddto, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("auth/CustomerRegister", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Login", "Authentication", "");
+                }
+            }
             return RedirectToAction("Login", "Authentication", "");
         }
 
         [HttpPost]
-        public ActionResult RegisterCompany(string dto)
+        public async Task<ActionResult> RegisterCompany(Company dto)
         {
-
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(link);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var serializeddto = JsonConvert.SerializeObject(dto);
+                var content = new StringContent(serializeddto, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("auth/CompanyRegister", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("CompanyLogin", "Authentication", "");
+                }
+            }
 
             return RedirectToAction("CompanyLogin", "Authentication", "");
         }
