@@ -2,14 +2,13 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     string id = (string)Session["UserID"];
-    string arr1="";
-    string expense = "";
+    string monthlyCarExceedKM = "";
 }
 <header class="flex-box text-center box carDetail-landing">
     @{ Html.RenderPartial("_UserControl"); }
 </header>
 <section class="default-bg margin-medium box">
-    <h2>Incomes-Expenses</h2>
+    <h2>Monthly Car Exceed KM</h2>
     <h1>@ViewBag.CustomerID</h1>
     <section class="flex-box-paddingS">
         <div class="profile__detail-details text-center flex-box-full">
@@ -27,16 +26,12 @@
     
         @foreach (var item in Model)
         {
-            arr1 += item.income+", ";
-            expense += item.expense + ", ";
+            monthlyCarExceedKM+=item.monthlyCarExceedKM + ", ";
         }
     options.series = [{
-        name: 'Income',
+        name: 'Average Value',
         data: generateDayWiseTimeSeries(0, 12)
-    }, {
-        name: 'Expense',
-        data: generateDayWiseTimeSeries(1, 12)
-        }]
+    }]
     
 
     var chart = new ApexCharts(document.querySelector("#timeline-chart"), options);
@@ -44,17 +39,15 @@
 
     function generateDayWiseTimeSeries(s, count) {
 
-        var values = [[
-            @arr1
-        ], [
-            @expense
-        ]];
+        var values = [
+            @monthlyCarExceedKM
+        ];
         var i = 0;
         var series = [];
         var x = new Date("1 Jan 2018").getTime();
         while (i < count) {
-            series.push([x, values[s][i]]);
-            x += 86400000 * 30; //add 1 month
+            series.push([x, values[i]]);
+            x += 86400000 * 30;
             i++;
         }
         return series;

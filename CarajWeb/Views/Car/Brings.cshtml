@@ -1,0 +1,45 @@
+﻿@model Newtonsoft.Json.Linq.JArray
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<header class="flex-box text-center box carDetail-landing">
+    @{ Html.RenderPartial("_UserControl"); }
+</header>
+<section class="default-bg margin-medium box">
+    <h2></h2>
+    <section class="flex-box-paddingS">
+        <div class="profile__detail-details text-center flex-box-full">
+            <table class="table">
+                <tr>
+                    <th>
+                        Car Brand
+                    </th>
+                    <th>
+                        Customer
+                    </th>
+                    <th>Settings</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item["nameSurname"]
+                        </td>
+                        <td>
+                            @item["brandModel"]
+                        </td>
+                        <td>
+                            @Html.ActionLink("Pick up the car", "../Car/Bring?car=" + item["carID"])
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </section>
+
+</section>

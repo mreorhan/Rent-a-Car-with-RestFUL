@@ -65,7 +65,8 @@ namespace CarajWeb.Controllers
                 if (response.StatusCode.GetHashCode() == 200)
                 {
                     var model = response.Content.ReadAsAsync<JObject>().Result;
-                    //Session["BirthDate"] = model.BirthDate.ToString("yyyy-MM-dd");
+                    Session["BirthDate"] = model["birthDate"];
+                    var x = model["birthDate"];
                     Response.Cookies.Add(CreateUserCookie(model["customerName"].ToString()));
                     Session["CustomerID"] = model["customerID"];
                     return RedirectToAction("Index", "Home", "");
@@ -139,7 +140,7 @@ namespace CarajWeb.Controllers
                     var model = response.Content.ReadAsAsync<JObject>().Result;
 
                     //TODO: Change companyid with companyname
-                    Response.Cookies.Add(CreateUserCookie(model["companyID"].ToString()));
+                    Response.Cookies.Add(CreateUserCookie(model["companyName"].ToString()));
                     Session["CompanyID"] = model["companyID"];
                     return RedirectToAction("Index", "Home", "");
                 }

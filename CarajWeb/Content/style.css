@@ -55,10 +55,18 @@ a:hover {
     }
 .car__btn-rent:hover {
     background: #094c81;
+    color: #fefefe;
+    text-decoration: none;
 }
 .car__btn-rent a:hover {
     text-decoration: none;
     color: #fff
+}
+.car__profile-header {
+    font-weight: bold;
+    font-size: 15px;
+    color: #222222;
+    line-height: 5;
 }
     .text-center {
     -webkit-box-pack: center;

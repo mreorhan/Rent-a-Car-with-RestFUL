@@ -1,69 +1,67 @@
-﻿@model IEnumerable<CarajWeb.Models.RentDetailsResponse>
+﻿@model List<Newtonsoft.Json.Linq.JObject>
 
 @{
     ViewBag.Title = "Reservations";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <header class="flex-box text-center box carDetail-landing">
     @{ Html.RenderPartial("_UserControl"); }
 </header>
 <section class="default-bg margin-medium box">
-    <h2>All Reservations</h2>
+    <h2>Reservations</h2>
     <section class="flex-box-paddingS">
         <div class="profile__detail-details text-center flex-box-full">
-            <p>
-                @Html.ActionLink("Create New", "Create")
-            </p>
             <table class="table">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.CustomerID)
+                        Customer ID
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.CarID)
+                        Car ID
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.RentStartDate)
+                        Rent Start Date
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.RentEndDate)
+                        Rent End Date
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.StartingKilometer)
+                        Starting Kilometer
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.EndingKilometer)
+                        Ending Kilometer
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Pricing)
+                        Pricing
                     </th>
                 </tr>
 
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CustomerID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CarID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RentStartDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RentEndDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.StartingKilometer)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EndingKilometer)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Pricing)
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        @item["carID"]
+                    </td>
+                    <td>
+                        @item["customerID"]
+                    </td>
+                    <td>
+                        @item["rentStartDate"]
+                    </td>
+                    <td>
+                        @item["rentEndDate"]
+                    </td>
+                    <td>
+                        @item["startingKilometer"]
+                    </td>
+                    <td>
+                        @item["endingKilometer"]
+                    </td>
+                    <td>
+                        @String.Format("{0:0.00}", item["pricing"]) TL
+                    </td>
+                </tr>
                 }
 
             </table>

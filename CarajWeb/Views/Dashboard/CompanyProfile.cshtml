@@ -9,14 +9,39 @@
     <h2>Company Profile</h2>
     <section class="flex-box-paddingS">
         <div class="profile__detail-details text-center flex-box-full">
-            <span class="car__text-age">Cars</span>
-            <a href="@Url.Action("Create", "Car")" class="car__btn-rent">
-                <i class="fas fa-add"></i> Add New Car
-            </a>
-            <a href="@Url.Action("List", "Car")" class="car__btn-rent">
-                <i class="fas fa-add"></i> List All Cars
-            </a>
+            <span class="car__profile-header">Car Settings</span>
+            <div style="display:inline-block">
+                <a href="@Url.Action("Create", "Car")" class="car__btn-rent">
+                    <i class="fas fa-plus-circle"></i> Add New Car
+                </a>
+                <a href="@Url.Action("List", "Car")" class="car__btn-rent">
+                    <i class="fas fa-list-alt"></i> List All Cars
+                </a>
+                <a href="@Url.Action("Reservations", "Car")" class="car__btn-rent">
+                    <i class="fas fa-car"></i> Show Reservations
+                </a>
+            </div><br />
+            <span class="car__profile-header">Graphs</span>
+            <div style="display:inline-block">
+                <a href="@Url.Action("Chart", "Dashboard")" class="car__btn-rent">
+                    <i class="fas fa-chart-area"></i> Income/Expense Chart
+                </a>
+
+                <a href="@Url.Action("MonthlyCarExceedKMChart", "Dashboard")" class="car__btn-rent">
+                    <i class="fas fa-chart-area"></i> Monthly Car Exceed KM Chart
+                </a>
+
+                <a href="@Url.Action("MonthlyCarRentalChart", "Dashboard")" class="car__btn-rent">
+                    <i class="fas fa-chart-area"></i> Monthly Car Rental Chart
+                </a>
+            </div><br />
+            <span class="car__profile-header">Bring the Car</span>
+            <div style="display:inline-block">
+                <a href="@Url.Action("Brings", "Car")" class="car__btn-rent">
+                    <i class="fas fa-car"></i> Bring Car
+                </a>
+            </div>
         </div>
-    </section>
+</section>
 
 </section>

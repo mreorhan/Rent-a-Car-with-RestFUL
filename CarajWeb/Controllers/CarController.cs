@@ -27,32 +27,69 @@ namespace CarajWeb.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<ActionResult> Edit(CarUpdate dto)
+        public ActionResult Edit(string carID)
         {
+            ViewBag.Message = "Car Details";
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(link);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var serializeddto = JsonConvert.SerializeObject(dto);
-                var content = new StringContent(serializeddto, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("car/UpdateCar", content);
+                HttpResponseMessage response = client.GetAsync("car/GetCars?id=" + carID).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("List", "Car", "");
+                    var model = response.Content.ReadAsAsync<JArray>().Result;
+                    return View(model);
                 }
+                else
+                    return View();
             }
-            ViewBag.Message = "Car Details";
-
-            return View(1);
         }
 
+        public ActionResult Brings()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(link);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json")); //Fix
+                HttpResponseMessage response = client.GetAsync("company/outside?CompanyID=" + Session["CompanyID"]).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var model = response.Content.ReadAsAsync<JArray>().Result;
+                    return View(model);
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Bring()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Bring(string endKM,string carID)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+
+                client.BaseAddress = new Uri(link);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var response = await client.GetAsync("Car/RentCarReturn?endKm=" + endKM + "&CarID=" + carID);
+                if (response.IsSuccessStatusCode)
+                {
+                    return View();
+                }
+                return View();
+            }
+        }
         public ActionResult List()
         {
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(link);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("car/GetCars?id="+ Session["CompanyID"]).Result;
+                HttpResponseMessage response = client.GetAsync("car/GetCars?id=" + Session["CompanyID"]).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var model = response.Content.ReadAsAsync<List<JObject>>().Result;
@@ -66,48 +103,71 @@ namespace CarajWeb.Controllers
 
         public ActionResult Reservations()
         {
-            //CompanyServiceSoapClient client = new CompanyServiceSoapClient();
-            //List<RentDetailsResponseDto> model = client.GetRentDetails((int)Session["CompanyID"]).ToList();
-            return View(1);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(link);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("company/GetRentDetails?id=" + Session["CompanyID"]).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var model = response.Content.ReadAsAsync<List<JObject>>().Result;
+                    return View(model);
+                }
+                else
+                    return View();
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(CarRequest dto)
         {
             dto.CompanyID = int.Parse(Session["CompanyID"].ToString());
-            using (HttpClient client = new HttpClient())
+            if (ModelState.IsValid)
             {
-                client.BaseAddress = new Uri(link);
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var serializeddto = JsonConvert.SerializeObject(dto);
-                var content = new StringContent(serializeddto, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("car/addcar", content);
-                if (response.IsSuccessStatusCode)
+
+                using (HttpClient client = new HttpClient())
                 {
-                    return RedirectToAction("List", "Car", "");
+                    client.BaseAddress = new Uri(link);
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var serializeddto = JsonConvert.SerializeObject(dto);
+                    var content = new StringContent(serializeddto, Encoding.UTF8, "application/json");
+                    var response = await client.PostAsync("car/addcar", content);
+                    if (response.IsSuccessStatusCode)
+                        return RedirectToAction("List", "Car", "");
                 }
             }
-
             return View();
         }
+    
 
-       /* [HttpPost]
-        public ActionResult Edit(string dto, string carID)
+    [HttpPost]
+    public async Task<ActionResult> Edit(CarUpdate dto, string carID)
+    {
+        using (HttpClient client = new HttpClient())
         {
-           // CarServiceSoapClient client = new CarServiceSoapClient();
-            if (ModelState.IsValid)
-                //client.UpdateCar(dto,int.Parse(carID));
-            return RedirectToAction("List", "Car", "");
-           
+            client.BaseAddress = new Uri(link);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var serializeddto = JsonConvert.SerializeObject(dto + carID);
+            var content = new StringContent(serializeddto, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("car/updatecar?id="+carID, content);
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("List", "Car", "");
+            }
         }
 
-        public ActionResult Delete(string carID)
-        {
-           // CarServiceSoapClient client = new CarServiceSoapClient();
-            if (ModelState.IsValid)
-               // client.DeleteCar(int.Parse(carID));
+        return View();
 
-            return RedirectToAction("List", "Car", "");
-        }*/
     }
+    /*
+    public ActionResult Delete(string carID)
+    {
+       // CarServiceSoapClient client = new CarServiceSoapClient();
+        if (ModelState.IsValid)
+           // client.DeleteCar(int.Parse(carID));
+
+        return RedirectToAction("List", "Car", "");
+    }*/
+}
 }

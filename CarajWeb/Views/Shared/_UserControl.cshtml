@@ -1,4 +1,7 @@
-﻿@{ 
-    HttpCookie aCookie = Request.Cookies["UserCookies"];
-    Html.RenderPartial(aCookie!=null ? "_RegisteredUser" : "_UnRegisteredUser");
+﻿@{
+    Html.RenderPartial(
+        (
+        HttpContext.Current.Session["CompanyID"] != null ||
+        HttpContext.Current.Session["CustomerID"] != null
+        ) ? "_RegisteredUser" : "_UnRegisteredUser");
 }
