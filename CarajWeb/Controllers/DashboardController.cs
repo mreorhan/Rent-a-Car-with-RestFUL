@@ -78,7 +78,8 @@ namespace CarajWeb.Controllers
         public ActionResult Reservation()
         {
             string BirthDate = Session["BirthDate"].ToString();
-            DateTime dt = DateTime.ParseExact(BirthDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            string chrw = BirthDate.Split(' ')[0];
+            DateTime dt = DateTime.ParseExact(chrw, "dd/MM/yyyy", CultureInfo.InvariantCulture);
             var today = DateTime.Today;
             var age = today.Year - dt.Year;
             if (dt.Date > today.AddYears(-age)) age--;
@@ -135,6 +136,23 @@ namespace CarajWeb.Controllers
                         chart[i].monthlyCarExceedKM = float.Parse(model[i]["monthlyCarExceedKM"].ToString());
                     }
                     return View(chart);
+                }
+                else
+                    return View();
+            }
+        }
+        public ActionResult AverageChart(int month)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(link);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage response = client.GetAsync("company/getaveragekm?companyid=" + Session["CompanyID"]+ "&month="+month).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var model = response.Content.ReadAsAsync<JArray>().Result;
+                    
+                    return View(model);
                 }
                 else
                     return View();

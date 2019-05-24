@@ -34,10 +34,10 @@ namespace CarajWeb.Controllers
             {
                 client.BaseAddress = new Uri(link);
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = client.GetAsync("car/GetCars?id=" + carID).Result;
+                HttpResponseMessage response = client.GetAsync("car/GetCar?id=" + carID).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    var model = response.Content.ReadAsAsync<JArray>().Result;
+                    var model = response.Content.ReadAsAsync<JObject>().Result;
                     return View(model);
                 }
                 else

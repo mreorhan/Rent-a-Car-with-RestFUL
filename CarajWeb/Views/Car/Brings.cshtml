@@ -33,7 +33,7 @@
                             @item["brandModel"]
                         </td>
                         <td>
-                            @Html.ActionLink("Pick up the car", "../Car/Bring?car=" + item["carID"])
+                            <a href="/Car/Bring?id=@item["carID"]">Pick up the car</a>
                         </td>
                     </tr>
                 }

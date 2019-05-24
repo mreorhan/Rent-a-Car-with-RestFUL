@@ -205,6 +205,7 @@
     <Content Include="Views\Dashboard\MonthlyCarExceedKMChart.cshtml" />
     <Content Include="Views\Car\Bring.cshtml" />
     <Content Include="Views\Car\Brings.cshtml" />
+    <Content Include="Views\Dashboard\AverageChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,74 @@
+﻿@model Newtonsoft.Json.Linq.JArray
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string id = (string)Session["UserID"];
+}    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<header class="flex-box text-center box carDetail-landing">
+    @{ Html.RenderPartial("_UserControl"); }
+</header>
+<section class="default-bg margin-medium box">
+    <h2>Average Daily Using in Cars</h2>
+    <h1>@ViewBag.CustomerID</h1>
+    <section class="flex-box-paddingS">
+        <div class="profile__detail-details text-center flex-box-full">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Choose Month
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="?month=1">January</a>
+                    <a class="dropdown-item" href="?month=2">February</a>
+                    <a class="dropdown-item" href="?month=3">March</a>
+                    <a class="dropdown-item" href="?month=4">April</a>
+                    <a class="dropdown-item" href="?month=5">May</a>
+                    <a class="dropdown-item" href="?month=6">June</a>
+                    <a class="dropdown-item" href="?month=7">July</a>
+                    <a class="dropdown-item" href="?month=8">August</a>
+                    <a class="dropdown-item" href="?month=9">September</a>
+                    <a class="dropdown-item" href="?month=10">October</a>
+                    <a class="dropdown-item" href="?month=11">November</a>
+                    <a class="dropdown-item" href="?month=12">December</a>
+                </div>
+            </div>
+            <div id="chart">
+                <div id="timeline-chart"></div>
+            </div>
+        </div>
+    </section>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@2.1.2"></script>
+<script src="~/Content/chart.js"></script>
+<script>
+
+    options.series = [{
+        name: 'Average Value',
+        data: generateDayWiseTimeSeries(0, 30)
+    }]
+
+
+    var chart = new ApexCharts(document.querySelector("#timeline-chart"), options);
+    chart.render();
+
+    function generateDayWiseTimeSeries(s, count) {
+
+        var values =
+            @Model
+        ;
+        var i = 0;
+        var series = [];
+        var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var x = new Date("1 "+monthNames[@Request["month"]-1]+" 2019").getTime();
+        while (i < count) {
+            series.push([x, values[i]]);
+            x += 86400000;
+            i++;
+        }
+        return series;
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
